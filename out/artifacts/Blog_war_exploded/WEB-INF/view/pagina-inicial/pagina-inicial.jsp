@@ -25,25 +25,31 @@
 
                 <!-- ACESSAR CONTA -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <a class="navbar-brand navbar-right text-primary" href >
+                    <a class="navbar-brand navbar-right text-primary" href data-toggle="modal" data-target="#acessarConta">
                         Acesse sua conta&nbsp; <i class="fa fa-sign-in"></i>
                     </a> &nbsp;
                 </div>   <!-- ./acessar conta -->
             </div>
         </nav>   <!-- ./menu superior -->
 
-        <br><br>
-
+        <br>   <!-- MENSAGENS -->
+        <c:if test="${not empty status}">
+            <div class="container">
+                <c:import url="../mensagens/mensagens.jsp" />
+            </div>
+        </c:if>
+        <br>
 
         <!-- POSTS -->
         <div class="container">
-
+            <!-- ULTIMOS POSTS -->
             <div class="well">
-                <strong class="text-muted lead" style="font-size: 23px">
-                    &nbsp;<i class="fa fa-angle-right"></i>&nbsp; Últimos Posts <i class="fa fa-calendar pull-right"></i>
+                <strong class="text-muted lead" style="font-size: 20px">
+                    &nbsp;<i class="fa fa-angle-right"></i>&nbsp; Últimos Posts
+                    <i class="fa fa-calendar pull-right"></i>
                 </strong>
             </div>
-            <br>
+            <br>   <!-- ./ultimos posts -->
 
             <!-- POST 1 -->
             <hr>
@@ -52,8 +58,8 @@
                     <div style="margin-left: 1%">
                         <h4 class="media-heading">Media heading</h4>
                         <span class="text-muted small">
-                        <span class="fa fa-user"></span> Usuário, &nbsp;<i class="fa fa-clock-o"></i> 23 de Julho, 2017 &nbsp;&nbsp; <i class="fa fa-comment-o"></i> 3
-                    </span>
+                                <span class="fa fa-user"></span> Usu·rio, &nbsp;<i class="fa fa-clock-o"></i> 23 de Julho, 2017 &nbsp;&nbsp; <i class="fa fa-comment-o"></i> 3
+                            </span>
                         <br><br>
                         Cras sit amet nibh libero, cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
@@ -71,8 +77,8 @@
                     <div style="margin-left: 1%">
                         <h4 class="media-heading">Media heading</h4>
                         <span class="text-muted small">
-                        <span class="fa fa-user"></span> Usuário, &nbsp;<i class="fa fa-clock-o"></i> 23 de Julho, 2017 &nbsp;&nbsp; <i class="fa fa-comment-o"></i> 3
-                    </span>
+                                <span class="fa fa-user"></span> Usu·rio, &nbsp;<i class="fa fa-clock-o"></i> 23 de Julho, 2017 &nbsp;&nbsp; <i class="fa fa-comment-o"></i> 3
+                            </span>
                         <br><br>
                         Cras sit amet nibh libero, cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
@@ -83,10 +89,12 @@
             </div>
             <hr>
             <br>
-        </div>
+        </div>    <!-- ./posts -->
 
+        <!-- MODAL LOGIN -->
+        <c:import url="modal-login.jsp"/>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
     </body>
 </html>

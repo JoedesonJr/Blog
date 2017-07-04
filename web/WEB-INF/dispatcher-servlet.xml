@@ -3,8 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- SPRING -->
     <context:component-scan base-package="br.ufsm.csi" />
@@ -18,5 +25,53 @@
     </bean>
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <!-- INTERCEPTOR -->
+    <mvc:interceptors>
+        <bean class="br.ufsm.csi.Interceptor.Interceptor" />
+    </mvc:interceptors>
+
+    <!-- HIBERNATE -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- TRANSACTION: representa as transoções ACID -->
+    <bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!-- SESSION FACTORY: mantem o mapeamento objeto relacional em memoria -->
+    <bean name="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!-- configuracao do SGBD -->
+        <property name="dataSource" ref="dataSource" />
+
+        <!-- entidades mapeadas -->
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+
+        <!-- propriedadaes do hibernate -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <!-- update, create, create-drop, none -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- update: atualiza o banco, gera as tabelas se for preciso -->
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- dados de conexao com o SGBD -->
+    <bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="url" value="jdbc:postgresql://200.132.36.170/db_blog" />
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="username" value="postgres" />
+        <property name="password" value="amj!#7" />
+        <property name="removeAbandonedOnBorrow" value="true" />
+        <property name="maxIdle" value="1" />
+        <property name="maxTotal" value="3" />
+    </bean>
 
 </beans>

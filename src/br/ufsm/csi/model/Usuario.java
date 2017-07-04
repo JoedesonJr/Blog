@@ -1,5 +1,9 @@
 package br.ufsm.csi.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 
     private long idUsuario;
@@ -10,6 +14,10 @@ public class Usuario {
     private int tentativasLogin;
     private boolean ativo;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
+    @SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario")
+    @Column(name = "idUsuario")
     public long getIdUsuario() {
         return idUsuario;
     }
@@ -18,6 +26,7 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
+    @Column(name = "login", length = 50, unique = true)
     public String getLogin() {
         return login;
     }
@@ -26,6 +35,7 @@ public class Usuario {
         this.login = login;
     }
 
+    @Column(name = "nome", length = 50)
     public String getNome() {
         return nome;
     }
@@ -34,6 +44,7 @@ public class Usuario {
         this.nome = nome;
     }
 
+    @Column(name = "senha", length = 20)
     public byte[] getSenha() {
         return senha;
     }
@@ -42,6 +53,7 @@ public class Usuario {
         this.senha = senha;
     }
 
+    @Column(name = "administrador")
     public boolean isAdministrador() {
         return administrador;
     }
@@ -50,6 +62,7 @@ public class Usuario {
         this.administrador = administrador;
     }
 
+    @Column(name = "tentativasLogin")
     public int getTentativasLogin() {
         return tentativasLogin;
     }
@@ -58,6 +71,7 @@ public class Usuario {
         this.tentativasLogin = tentativasLogin;
     }
 
+    @Column(name = "ativo")
     public boolean isAtivo() {
         return ativo;
     }

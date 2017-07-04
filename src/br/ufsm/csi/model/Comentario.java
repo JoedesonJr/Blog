@@ -1,7 +1,10 @@
 package br.ufsm.csi.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "comentario")
 public class Comentario {
 
     private long idComentario;
@@ -9,6 +12,10 @@ public class Comentario {
     private Date dataHora;
     private Post post;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_comentario")
+    @SequenceGenerator(name = "seq_comentario", sequenceName = "seq_comentario")
+    @Column(name = "idComentario")
     public long getIdComentario() {
         return idComentario;
     }
@@ -17,6 +24,7 @@ public class Comentario {
         this.idComentario = idComentario;
     }
 
+    @Column(name = "comentario", columnDefinition = "text")
     public String getComentario() {
         return comentario;
     }
@@ -25,6 +33,7 @@ public class Comentario {
         this.comentario = comentario;
     }
 
+    @Column(name = "dataHora")
     public Date getDataHora() {
         return dataHora;
     }
@@ -33,6 +42,8 @@ public class Comentario {
         this.dataHora = dataHora;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "idPost")
     public Post getPost() {
         return post;
     }

@@ -1,7 +1,12 @@
 package br.ufsm.csi.model;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "post")
 public class Post {
 
     private long idPost;
@@ -11,6 +16,10 @@ public class Post {
     private Usuario usuario;
     private boolean ativo;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_post")
+    @SequenceGenerator(name = "seq_post", sequenceName = "seq_post")
+    @Column(name = "idPost")
     public long getIdPost() {
         return idPost;
     }
@@ -19,6 +28,7 @@ public class Post {
         this.idPost = idPost;
     }
 
+    @Column(name = "titulo", length = 50)
     public String getTitulo() {
         return titulo;
     }
@@ -27,6 +37,7 @@ public class Post {
         this.titulo = titulo;
     }
 
+    @Column(name = "post", columnDefinition = "TEXT")
     public String getPost() {
         return post;
     }
@@ -35,6 +46,7 @@ public class Post {
         this.post = post;
     }
 
+    @Column(name = "dataHora")
     public Date getDataHora() {
         return dataHora;
     }
@@ -43,6 +55,8 @@ public class Post {
         this.dataHora = dataHora;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
     public Usuario getUsuario() {
         return usuario;
     }
@@ -51,6 +65,7 @@ public class Post {
         this.usuario = usuario;
     }
 
+    @Column(name = "ativo")
     public boolean isAtivo() {
         return ativo;
     }
